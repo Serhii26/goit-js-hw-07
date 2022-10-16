@@ -7,14 +7,13 @@ const galleryEl = document.querySelector('.gallery');
 const galerryMarkup = creatingCallery(galleryItems);
 
 galleryEl.insertAdjacentHTML('beforeend', galerryMarkup);
- galleryEl.addEventListener('click', galleryClick);
+galleryEl.addEventListener('click', galleryClick);
 console.log(galleryEl);
 
-function creatingCallery (gallery) {
-    
-    return galleryItems
-     .map(({preview, original, description}) => {
-        return `
+function creatingCallery(gallery) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `
         <div class="gallery__item">
         <a class="gallery__link" href="${original}">
          <img
@@ -26,41 +25,36 @@ function creatingCallery (gallery) {
          </a>
          </div>
          `;
-
-     })
+    })
     .join('');
-    
 }
 
+function galleryClick(event) {
+  event.preventDefault();
+  if (!event.target.classList.contains('gallery__image')) {
+    return;
+  }
 
-  function galleryClick (event) {
-    event.preventDefault();
-    if (!event.target.classList.contains('gallery__image')){
-        return;
-    }
+  console.log(event.target.alt);
+  const swatchEl = event.target;
 
-    console.log(event.target.alt);
-    const swatchEl = event.target;
-    
+  const instance = basicLightbox.create(
+    `
+  <img src="${swatchEl.dataset.source}" width="800" height="600">`,
+    {
+      OnCloseKey: instance => {
+        window.removeEventListener('keydown', onEscKey);
+      },
+    },
+  );
 
-    const instance = basicLightbox.create(`
-  <img src="${swatchEl.dataset.source}" width="800" height="600">
-`,
-{OnCloseKey: (instance) => 
-  {window.removeEventListener('keydown', onEscKey);}});
-    
   instance.show();
 
-  const  onEscKey  = (event) => {
-     
+  const onEscKey = event => {
     if (event.key !== 'Escape') {
       return;
-
     }
     instance.close();
-   
-  }
+  };
   window.addEventListener('keydown', onEscKey);
-
-  }
-  
+}
