@@ -40,15 +40,22 @@ function galleryClick(event) {
 
   const instance = basicLightbox.create(
     ` <img src="${swatchEl.dataset.source}" width="800" height="600">`,
+    // {
+    //   onKey() { document.addEventListener('keydown', onEscKey) },
+    //   onRey() {document.removeEventListener('keydown', onEscKey)},
+    // }
   );
 
   instance.show();
 
-  const onEscKey = event => {
-    if (event.key !== 'Escape') {
+  function onEscKey(event) {
+    if (event.code !== 'Escape') {
       return;
     }
+    console.log('lisener');
+    document.removeEventListener('keydown', onEscKey);
     instance.close();
-  };
-  window.addEventListener('keydown', onEscKey);
+  }
+
+  document.addEventListener('keydown', onEscKey);
 }
