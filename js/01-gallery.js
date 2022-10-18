@@ -39,13 +39,7 @@ function galleryClick(event) {
   const swatchEl = event.target;
 
   const instance = basicLightbox.create(
-    `
-  <img src="${swatchEl.dataset.source}" width="800" height="600">`,
-    {
-      OnCloseKey: instance => {
-        window.removeEventListener('keydown', onEscKey);
-      },
-    },
+    ` <img src="${swatchEl.dataset.source}" width="800" height="600">`,
   );
 
   instance.show();
