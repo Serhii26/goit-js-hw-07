@@ -41,9 +41,13 @@ function galleryClick(event) {
   const instance = basicLightbox.create(
     ` <img src="${swatchEl.dataset.source}" width="800" height="600">`,
     {
-      onShow() { document.addEventListener('keydown', onEscKey) },
-      onClose() {document.removeEventListener('keydown', onEscKey)},
-    }
+      onShow() {
+        document.addEventListener('keydown', onEscKey);
+      },
+      onClose() {
+        document.removeEventListener('keydown', onEscKey);
+      },
+    },
   );
 
   instance.show();
@@ -53,9 +57,7 @@ function galleryClick(event) {
       return;
     }
     console.log('lisener');
-    
+
     instance.close();
   }
-
- 
 }
